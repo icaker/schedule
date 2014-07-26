@@ -41,7 +41,7 @@ logdetail=open(sys.argv[2],'w')         #write schedule detail to it
 req=logfile.readline()
 req_next = Request(req)
 
-for second in range(3600):
+for second in range(7200):
     ra=Rmax                             #rate available
     print "second %d" % second
     #calculate waiting queue to be scheduled
@@ -74,8 +74,6 @@ for second in range(3600):
         f=0
         for j in range(summary[i]):
             id = server_id[i][j]
-            print i,j,f
-            print req_todo
             req_todo[i][j-f].server.append(id)
             req_todo[i][j-f].schedule_time.append(second)
             req_todo[i][j-f].ttl -= 1
@@ -124,8 +122,6 @@ for second in range(3600):
  #   print summary
   #  print "throughput %f" % throughput
 
-   # if not len(req):
-    #    break
 
 logfile.close()
 logdetail.close()
