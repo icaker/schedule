@@ -5,7 +5,7 @@
 #    3 types of bandwidth(10Mbps,1Mbps,0.1Mbps),
 #    5 servers (Max Rate:100Mbps)
 #Usage:
-#    $ ./simulate.py [simulate date file] [request detail record file]
+#    $ ./simult_preempt.py [simulate date file] [request detail record file]
 #Date:
 #    2014.07.17
 
