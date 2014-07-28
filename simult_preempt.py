@@ -87,9 +87,6 @@ for second in range(7200):
                 logdetail.write(detail)
                 #departure
                 del req_todo[i][j-f]
-                s_id = "|".join([str(t) for t in req_next.server])
-                s_id_time = "|".join([str(t) for t in req_next.schedule_time])
-                detail = "%d\t%f\t%d\t%d\t%s\t%s\n"%(req_next.request_time,req_next.size,req_next.rtype,req_next.ttl,s_id,s_id_time)
                 f=f+1
 
 
