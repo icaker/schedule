@@ -42,24 +42,24 @@ req=logfile.readline()
 req_next = Request(req)
 
 ra=Rmax                                 #rate available
-for second in range(10):
-    print "============================================================second %d" % second
+for second in range(7200):
+    print "second %d" % second
     #calculate new queue to be scheduled
     #each item in new queue is an integer,indicating time slot required
     qloadlen=[sum(i) for i in qnew]
     num=[len(i) for i in qnew]          #task number
 
-    print 'qloadlen :'
-    print qloadlen
-    print 'num :'
-    print num
+    #print 'qloadlen :'
+    #print qloadlen
+    #print 'num :'
+    #print num
 
     #bandwidth allocation using GLPK,results = [1,2,3,...,13,14,15]
     shell="solve_non_preemptive/solve %d %d %d %d %d %d %d %d %d %d %d" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2],ra[0],ra[1],ra[2],ra[3],ra[4])
     temp_results=commands.getoutput(shell).split("\n")[-1].split(",")
     results=[int(i) for i in temp_results]
-    print 'results :'
-    print results
+    #print 'results :'
+    #print results
 
     #current server status
     new_allo=[0,0,0]                     #different type of bandwidth new allocation
@@ -69,10 +69,10 @@ for second in range(10):
     summary[0]=summary[0]+new_allo[0]
     summary[1]=summary[1]+new_allo[1]
     summary[2]=summary[2]+new_allo[2]
-    print "new_allo :"
-    print  new_allo
-    print "summary :"
-    print summary
+    #print "new_allo :"
+    #print  new_allo
+    #print "summary :"
+    #print summary
 
     #update Requests info about server id and time scheduled
     #firstly,get server id for requests to be scheduled
@@ -82,8 +82,8 @@ for second in range(10):
             x = results[j*3+i]
             if x:
                 server_id[i].extend([j]*x)
-    print "server_id :"
-    print server_id
+    #print "server_id :"
+    #print server_id
 
     #then push each new Request to server,
     #i.e. write server id and scheduled time to Request info
@@ -97,8 +97,8 @@ for second in range(10):
             ra[id]-=type[i]
             req_todo[i].append(req_new[i][j-f])
             del req_new[i][j-f]
-            print "i,j,f,second"
-            print i,j,f,second
+     #       print "i,j,f,second"
+      #      print i,j,f,second
             f=f+1
         req_on_server[i].extend(req_todo[i])
 
@@ -120,8 +120,8 @@ for second in range(10):
                 del req_on_server[i][j-f]
                 summary[i]-=1
                 f=f+1
-    print "ra :"
-    print ra
+   # print "ra :"
+    #print ra
 
     #new request coming
     qnew=[[],[],[]]
@@ -132,8 +132,8 @@ for second in range(10):
         if not bool(req):
             break
         req_next=Request(req)
-    print 'qnew :'
-    print qnew
+   # print 'qnew :'
+   # print qnew
     #bandwidth availiable
     throughput=summary[0]*type[0]+summary[1]*type[1]+summary[2]*type[2]
 
