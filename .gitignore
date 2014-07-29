@@ -1,0 +1,17 @@
+# Compiled Object files
+*.o
+
+#Compiled python
+*.pyc
+#Editor temporaries
+*~
+
+#Others
+*log
+simu
+temp_code
+t.py
+sample/
+generate/main
+solve_distribute/solve
+solve_preemptive/solve
