@@ -31,7 +31,7 @@ for record in input:
         t = schedule_time
         throughput[t+i][sid]+=type[rt]
     throughput[complete_time][server_id]+=size-(n-1)*type[rt]
-    print throughput[:10]
+
 
 for data in throughput:
     output.write(("  ".join([str(i) for i in data]))+'\n')
