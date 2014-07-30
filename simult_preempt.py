@@ -53,7 +53,7 @@ for second in range(7200):
     num=[len(i) for i in qwait]         #task number
 
     #bandwidth allocation using GLPK,results = [1,2,3,...,13,14,15]
-    shell="solve_preemptive/solve %d %d %d %d %d %d 100" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2])
+    shell="solve_preemptive/solve %f %f %f %d %d %d 100" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2])
     temp_results=commands.getoutput(shell).split("\n")[-1].split(",")
     results=[int(i) for i in temp_results]
     summary=[0,0,0]                     #different type of bandwidth allocation summary

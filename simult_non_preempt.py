@@ -31,7 +31,7 @@ class Request:
 Rmax=[100]*5
 
 type=[10.0,1.0,0.1]                     #rate type
-qnew=[[] for i in range(3)]             #new requests coming
+qwait=[[] for i in range(3)]            #request length to be scheduled
 qloadlen=[0,0,0]                        #queue length for different rate type
 req_on_server = [[],[],[]]              #Requests pushed but not finished
 req_new = [[],[],[]]                    #Requests new coming
@@ -44,10 +44,10 @@ req_next = Request(req)
 ra=Rmax                                 #rate available
 for second in range(7200):
     print "second %d" % second
-    #calculate new queue to be scheduled
-    #each item in new queue is an integer,indicating time slot required
-    qloadlen=[sum(i) for i in qnew]
-    num=[len(i) for i in qnew]          #task number
+    #calculate queue load length to be scheduled
+    #each item in qnew and qwait is an integer,indicating time slot required
+    qloadlen=[sum(i) for i in qwait]
+    num=[len(i) for i in qwait]          #task number
 
     #print 'qloadlen :'
     #print qloadlen
@@ -55,7 +55,7 @@ for second in range(7200):
     #print num
 
     #bandwidth allocation using GLPK,results = [1,2,3,...,13,14,15]
-    shell="solve_non_preemptive/solve %d %d %d %d %d %d %d %d %d %d %d" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2],ra[0],ra[1],ra[2],ra[3],ra[4])
+    shell="solve_non_preemptive/solve %f %f %f %d %d %d %f %f %f %f %f" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2],ra[0],ra[1],ra[2],ra[3],ra[4])
     temp_results=commands.getoutput(shell).split("\n")[-1].split(",")
     results=[int(i) for i in temp_results]
     #print 'results :'
@@ -97,6 +97,7 @@ for second in range(7200):
             ra[id]-=type[i]
             req_todo[i].append(req_new[i][j-f])
             del req_new[i][j-f]
+            del qwait[i][j-f]
      #       print "i,j,f,second"
       #      print i,j,f,second
             f=f+1
@@ -120,13 +121,11 @@ for second in range(7200):
                 del req_on_server[i][j-f]
                 summary[i]-=1
                 f=f+1
-   # print "ra :"
-    #print ra
+
 
     #new request coming
-    qnew=[[],[],[]]
     while(req_next.request_time==second):
-        qnew[req_next.rtype].append(req_next.ttl)
+        qwait[req_next.rtype].append(req_next.ttl)
         req_new[req_next.rtype].append(req_next)
         req=logfile.readline()
         if not bool(req):
