@@ -3,9 +3,9 @@
 #include <glpk.h>
 
 int main(int argc,char *argv[]){
-  int q[] = {atoi(argv[1]),atoi(argv[2]),atoi(argv[3])};    //queue length
+  int q[] = {atof(argv[1]),atof(argv[2]),atof(argv[3])};    //queue length
   int n[] = {atoi(argv[4]),atoi(argv[5]),atoi(argv[6])};    //different request number
-  int ra[] ={atoi(argv[7]),atoi(argv[8]),atoi(argv[9]),atoi(argv[10]),atoi(argv[11])};  //bandwidth availiable
+  int ra[] ={atof(argv[7]),atof(argv[8]),atof(argv[9]),atof(argv[10]),atof(argv[11])};  //bandwidth availiable
   glp_prob *mip = glp_create_prob();
   glp_set_prob_name(mip, "sample");
   glp_set_obj_dir(mip, GLP_MAX);
@@ -13,19 +13,19 @@ int main(int argc,char *argv[]){
   glp_add_rows(mip, 8);
   glp_set_row_name(mip, 1, "n1");
   if (n[0]==0)
-    glp_set_row_bnds(mip, 1, GLP_FX, 0.0, n[0]);
+    glp_set_row_bnds(mip, 1, GLP_FX, 0, 0);
   else
-    glp_set_row_bnds(mip, 1, GLP_DB, 0.0, n[0]);
+    glp_set_row_bnds(mip, 1, GLP_DB, 0, n[0]);
   glp_set_row_name(mip, 2, "n2");
   if (n[1]==0)
-    glp_set_row_bnds(mip, 2, GLP_FX, 0.0, n[1]);
+    glp_set_row_bnds(mip, 2, GLP_FX, 0, 0);
   else
-    glp_set_row_bnds(mip, 2, GLP_DB, 0.0, n[1]);
+    glp_set_row_bnds(mip, 2, GLP_DB, 0, n[1]);
   glp_set_row_name(mip, 3, "n3");
   if (n[2]==0)
-    glp_set_row_bnds(mip, 3, GLP_FX, 0.0, n[2]);
+    glp_set_row_bnds(mip, 3, GLP_FX, 0, 0);
   else
-    glp_set_row_bnds(mip, 3, GLP_DB, 0.0, n[2]);
+    glp_set_row_bnds(mip, 3, GLP_DB, 0, n[2]);
   glp_set_row_name(mip, 4, "c1");
   glp_set_row_bnds(mip, 4, GLP_DB, 0.0, ra[0]);
   glp_set_row_name(mip, 5, "c2");

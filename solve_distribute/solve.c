@@ -3,9 +3,9 @@
 #include <glpk.h>
 
 int main(int argc,char *argv[]){
-  int q[] = {atoi(argv[1]),atoi(argv[2]),atoi(argv[3])};    //queue length
+  int q[] = {atof(argv[1]),atof(argv[2]),atof(argv[3])};    //queue length
   int n[] = {atoi(argv[4]),atoi(argv[5]),atoi(argv[6])};
-  int cmax = atoi(argv[7]);    //amount
+  int cmax = atof(argv[7]);    //amount
   glp_prob *mip = glp_create_prob();
   glp_set_prob_name(mip, "sample");
   glp_set_obj_dir(mip, GLP_MAX);
@@ -16,23 +16,26 @@ int main(int argc,char *argv[]){
 
   glp_add_cols(mip, 3);
   glp_set_col_name(mip, 1, "x1");
-  glp_set_col_bnds(mip, 1, GLP_DB, 0.0, n[0]);
+  if (n[0]==0)
+    glp_set_col_bnds(mip, 1, GLP_FX, 0, 0);
+  else
+    glp_set_col_bnds(mip, 1, GLP_DB, 0, n[0]);
   glp_set_obj_coef(mip, 1, q[0]);
   glp_set_col_kind(mip, 1, GLP_IV);
 
   glp_set_col_name(mip, 2, "x2");
-  //if (n[1]==0)
-  //  glp_set_col_bnds(mip, 2, GLP_FX, 0.0, n[1]);
-  //else
-  glp_set_col_bnds(mip, 2, GLP_DB, 0.0, n[1]);
+  if (n[1]==0)
+    glp_set_col_bnds(mip, 2, GLP_FX, 0, 0);
+  else
+    glp_set_col_bnds(mip, 2, GLP_DB, 0, n[1]);
   glp_set_obj_coef(mip, 2, q[1]);
   glp_set_col_kind(mip, 2, GLP_IV);
 
   glp_set_col_name(mip, 3, "x3");
-  //if (n[2]==0)
-  //  glp_set_col_bnds(mip, 3, GLP_FX, 0.0, n[2]);
-  //else
-  glp_set_col_bnds(mip, 3, GLP_DB, 0.0, n[2]);
+  if (n[2]==0)
+    glp_set_col_bnds(mip, 3, GLP_FX, 0, 0);
+  else
+    glp_set_col_bnds(mip, 3, GLP_DB, 0, n[2]);
   glp_set_obj_coef(mip, 3, q[2]);
   glp_set_col_kind(mip, 3, GLP_IV);
 
