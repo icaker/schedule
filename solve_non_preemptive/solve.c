@@ -26,16 +26,38 @@ int main(int argc,char *argv[]){
     glp_set_row_bnds(mip, 3, GLP_FX, 0, 0);
   else
     glp_set_row_bnds(mip, 3, GLP_DB, 0, n[2]);
+
+
   glp_set_row_name(mip, 4, "c1");
-  glp_set_row_bnds(mip, 4, GLP_DB, 0.0, ra[0]);
+  if (ra[0]==0)
+    glp_set_row_bnds(mip, 4, GLP_FX, 0, 0);
+  else
+    glp_set_row_bnds(mip, 4, GLP_DB, 0, ra[0]);
+
   glp_set_row_name(mip, 5, "c2");
-  glp_set_row_bnds(mip, 5, GLP_DB, 0.0, ra[1]);
+  if (ra[1]==0)
+    glp_set_row_bnds(mip, 5, GLP_FX, 0, 0);
+  else
+    glp_set_row_bnds(mip, 5, GLP_DB, 0, ra[1]);
+
   glp_set_row_name(mip, 6, "c3");
-  glp_set_row_bnds(mip, 6, GLP_DB, 0.0, ra[2]);
+  if (ra[2]==0)
+    glp_set_row_bnds(mip, 6, GLP_FX, 0, 0);
+  else
+    glp_set_row_bnds(mip, 6, GLP_DB, 0, ra[2]);
+
   glp_set_row_name(mip, 7, "c4");
-  glp_set_row_bnds(mip, 7, GLP_DB, 0.0, ra[3]);
+  if (ra[3]==0)
+    glp_set_row_bnds(mip, 7, GLP_FX, 0, 0);
+  else
+    glp_set_row_bnds(mip, 7, GLP_DB, 0, ra[3]);
+
   glp_set_row_name(mip, 8, "c5");
-  glp_set_row_bnds(mip, 8, GLP_DB, 0.0, ra[4]);
+  if (ra[4]==0)
+    glp_set_row_bnds(mip, 8, GLP_FX, 0, 0);
+  else
+    glp_set_row_bnds(mip, 8, GLP_DB, 0, ra[4]);
+
 
   glp_add_cols(mip, 15);
   glp_set_col_name(mip, 1, "x11");
