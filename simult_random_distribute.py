@@ -55,7 +55,7 @@ for second in range(7200):
        # print 'i,num:%d'%i
        # print 'num:%d,%d,%d'%(num[0],num[1],num[2])
         #bandwidth allocation using GLPK,results = [1,2,3]
-        shell="solve_distribute/solve %f %f %f %d %d %d %f" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2],ra[i])
+        shell="solve_distribute/solve %d %d %d %d %d %d %f" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2],ra[i])
         temp_results=commands.getoutput(shell).split("\n")[-1].split(",")
         results=[int(j) for j in temp_results]
       #  print shell

@@ -38,6 +38,7 @@ qloadlen=[0,0,0]                        #queue length for different rate type
 req_todo = [[],[],[]]                   #requests pushed but not finished
 logfile=open(sys.argv[1])
 logdetail=open(sys.argv[2],'w')         #write schedule detail to it
+qlenfile=open(sys.argv[3],'w')
 req=logfile.readline()
 req_next = Request(req)
 
@@ -52,8 +53,10 @@ for second in range(7200):
     qloadlen=[sum(i) for i in qwait]
     num=[len(i) for i in qwait]         #task number
 
+    info2write("%d    %d    %d\n"%(qloadlen[0],qloadlen[1],qloadlen[2]))
+    qlenfile.write(info2write)
     #bandwidth allocation using GLPK,results = [1,2,3,...,13,14,15]
-    shell="solve_preemptive/solve %f %f %f %d %d %d 100" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2])
+    shell="solve_preemptive/solve %d %d %d %d %d %d 100" % (qloadlen[0],qloadlen[1],qloadlen[2],num[0],num[1],num[2])
     temp_results=commands.getoutput(shell).split("\n")[-1].split(",")
     results=[int(i) for i in temp_results]
     summary=[0,0,0]                     #different type of bandwidth allocation summary
@@ -122,3 +125,4 @@ for second in range(7200):
 
 logfile.close()
 logdetail.close()
+qlenfile.close()
