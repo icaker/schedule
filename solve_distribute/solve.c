@@ -5,7 +5,7 @@
 int main(int argc,char *argv[]){
   int q[] = {atoi(argv[1]),atoi(argv[2]),atoi(argv[3])};    //queue length
   int n[] = {atoi(argv[4]),atoi(argv[5]),atoi(argv[6])};
-  int cmax = atof(argv[7]);    //amount
+  float cmax = atof(argv[7]);    //amount
   glp_prob *mip = glp_create_prob();
   glp_set_prob_name(mip, "sample");
   glp_set_obj_dir(mip, GLP_MAX);

@@ -5,7 +5,7 @@
 int main(int argc,char *argv[]){
   int q[] = {atoi(argv[1]),atoi(argv[2]),atoi(argv[3])};    //queue length
   int n[] = {atoi(argv[4]),atoi(argv[5]),atoi(argv[6])};    //different request number
-  int ra[] ={atof(argv[7]),atof(argv[8]),atof(argv[9]),atof(argv[10]),atof(argv[11])};  //bandwidth availiable
+  float ra[] ={atof(argv[7]),atof(argv[8]),atof(argv[9]),atof(argv[10]),atof(argv[11])};  //bandwidth availiable
   glp_prob *mip = glp_create_prob();
   glp_set_prob_name(mip, "sample");
   glp_set_obj_dir(mip, GLP_MAX);
